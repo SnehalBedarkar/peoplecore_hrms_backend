@@ -1,0 +1,127 @@
+/* ==========================================================================
+   Employees page — dark mode overrides
+   ==========================================================================
+   Bootstrap's .card, .table, .form-control, etc. ship with hardcoded light
+   colors and don't know about our [data-theme="dark"] attribute. The shell
+   (sidebar/topbar) already reacts to it via --shell-* variables in app.css;
+   here we reuse those same variables so page content matches the shell
+   instead of staying white when dark mode is on.
+   ========================================================================== */
+
+[data-theme="dark"] .card {
+    background-color: var(--shell-surface);
+    border-color: var(--shell-border);
+    color: var(--shell-text);
+}
+
+[data-theme="dark"] .card-header,
+[data-theme="dark"] .card-footer {
+    background-color: var(--shell-surface);
+    border-color: var(--shell-border);
+}
+
+[data-theme="dark"] .text-muted {
+    color: var(--shell-text-muted) !important;
+}
+
+/* Stat tile icon circles: Bootstrap's *-subtle classes are light-mode only */
+[data-theme="dark"] .bg-primary-subtle {
+    background-color: rgba(110, 123, 255, 0.16) !important;
+}
+[data-theme="dark"] .bg-success-subtle {
+    background-color: rgba(16, 185, 129, 0.16) !important;
+}
+[data-theme="dark"] .bg-warning-subtle {
+    background-color: rgba(245, 158, 11, 0.16) !important;
+}
+[data-theme="dark"] .bg-info-subtle {
+    background-color: rgba(56, 189, 248, 0.16) !important;
+}
+
+/* ---------- Table ---------- */
+
+[data-theme="dark"] .table {
+    color: var(--shell-text);
+    border-color: var(--shell-border);
+}
+
+/* Bootstrap's table-hover/striped rely on a light bg-blend; override directly */
+[data-theme="dark"] .table > :not(caption) > * > * {
+    background-color: var(--shell-surface);
+    color: var(--shell-text);
+    border-bottom-color: var(--shell-border);
+}
+
+[data-theme="dark"] .table-hover > tbody > tr:hover > * {
+    background-color: var(--shell-bg);
+    color: var(--shell-text);
+}
+
+[data-theme="dark"] .table thead th {
+    color: var(--shell-text-muted);
+    border-bottom-color: var(--shell-border);
+}
+
+/* ---------- Form controls: search box, selects ---------- */
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .input-group-text {
+    background-color: var(--shell-bg);
+    border-color: var(--shell-border);
+    color: var(--shell-text);
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: var(--shell-text-muted);
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+    background-color: var(--shell-bg);
+    border-color: var(--shell-accent);
+    color: var(--shell-text);
+    box-shadow: 0 0 0 3px var(--shell-accent-soft);
+}
+
+/* ---------- Buttons (outline variants only — solid btn-primary is fine) ---------- */
+
+[data-theme="dark"] .btn-outline-secondary {
+    color: var(--shell-text-muted);
+    border-color: var(--shell-border);
+}
+[data-theme="dark"] .btn-outline-secondary:hover {
+    background-color: var(--shell-bg);
+    color: var(--shell-text);
+}
+
+/* ---------- Pagination ---------- */
+
+[data-theme="dark"] .page-link {
+    background-color: var(--shell-surface);
+    border-color: var(--shell-border);
+    color: var(--shell-text);
+}
+
+[data-theme="dark"] .page-item.disabled .page-link {
+    background-color: var(--shell-surface);
+    color: var(--shell-text-muted);
+}
+
+[data-theme="dark"] .page-item.active .page-link {
+    background-color: var(--shell-accent);
+    border-color: var(--shell-accent);
+    color: #fff;
+}
+
+[data-theme="dark"] .page-link:hover {
+    background-color: var(--shell-bg);
+    color: var(--shell-text);
+}
+
+/* ---------- Shadows ---------- */
+/* Bootstrap's shadow-sm is tuned for white cards; on dark surfaces it's
+   nearly invisible, so swap it for the shell's own shadow token. */
+[data-theme="dark"] .shadow-sm {
+    box-shadow: var(--shell-shadow) !important;
+}
