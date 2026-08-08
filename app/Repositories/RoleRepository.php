@@ -8,7 +8,7 @@ class RoleRepository
 {
     public function getRoles()
     {
-        return Role::select('id', 'name')
+        return Role::select('id', 'name', 'created_at')
             ->where('slug', '!=', 'superadmin')
             ->with('permissions:id,name,module')
             ->withCount('users')

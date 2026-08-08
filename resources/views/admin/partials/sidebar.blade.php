@@ -1,15 +1,3 @@
-{{--
-    Sidebar partial.
-
-    Active-state logic: request()->routeIs('pattern.*') checks the CURRENT
-    route name against a pattern — this is the Blade equivalent of checking
-    `Route::currentRouteName()` in a controller, just declarative. The '*'
-    wildcard means "this nav item is active for any route under this group"
-    (e.g. employees.index, employees.create, employees.edit all light up
-    "Employees" in the sidebar). This is why route *naming* discipline
-    (employees.index, employees.create...) pays off later — the sidebar
-    highlighting is free once routes are named consistently.
---}}
 <aside class="app-sidebar" id="appSidebar">
 
     <div class="sidebar-brand">
@@ -93,6 +81,34 @@
                     data-bs-toggle="tooltip" data-bs-placement="right" title="Settings">
                     <i class="bi bi-gear-fill"></i>
                     <span class="nav-text">Settings</span>
+                </a>
+            </li>
+        </ul>
+        <div class="nav-section-label">Access Control</div>
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="{{ route('users.index') }}"
+                    class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Users">
+                    <i class="bi bi-person-fill-gear"></i>
+                    <span class="nav-text">Users</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('roles.index') }}"
+                    class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Roles">
+                    <i class="bi bi-shield-lock-fill"></i>
+                    <span class="nav-text">Roles</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link {{ request()->routeIs('permissions.*') ? 'active' : '' }}"
+                    data-bs-toggle="tooltip" data-bs-placement="right" title="Permissions">
+                    <i class="bi bi-key-fill"></i>
+                    <span class="nav-text">Permissions</span>
                 </a>
             </li>
         </ul>

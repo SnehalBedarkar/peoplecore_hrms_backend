@@ -3,13 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class UserStoreRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
@@ -17,22 +15,16 @@ class UserStoreRequest extends FormRequest
 
     public function rules(): array
     {
+        $userId = $this->route('user')->id;
+
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
+            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($userId)],
             'phone' => 'nullable|string|max:20',
             'status' => 'required|in:active,inactive',
-            'password' => ['required', 'confirmed', Password::min(8)],
+            'password' => ['nullable', 'confirmed', Password::min(8)],
             'role_ids' => 'required|array|min:1',
             'role_ids.*' => 'exists:roles,id',
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'role_ids.required' => 'Please assign at least one role.',
-            'role_ids.*.exists' => 'One of the selected roles is invalid.',
         ];
     }
 }
